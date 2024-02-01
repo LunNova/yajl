@@ -16,6 +16,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(YetAnotherJSONParser C)
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 SET (YAJL_MAJOR 2)
 SET (YAJL_MINOR 1)
 SET (YAJL_MICRO 1)

@@ -35,9 +35,7 @@ SET (pkgconfigDir ${CMAKE_CURRENT_BINARY_DIR}/../${YAJL_DIST_NAME}/lib/pkgconfig
 # set the output path for libraries
 SET(LIBRARY_OUTPUT_PATH ${libDir})
 
-ADD_LIBRARY(yajl_s STATIC ${SRCS} ${HDRS} ${PUB_HDRS})
-
-ADD_LIBRARY(yajl SHARED ${SRCS} ${HDRS} ${PUB_HDRS})
+ADD_LIBRARY(yajl ${SRCS} ${HDRS} ${PUB_HDRS})
 
 #### setup shared library version number
 SET_TARGET_PROPERTIES(yajl PROPERTIES
@@ -69,7 +67,7 @@ FOREACH (header ${PUB_HDRS})
 
   EXEC_PROGRAM(${CMAKE_COMMAND} ARGS -E copy_if_different ${header} ${incDir})
 
-  ADD_CUSTOM_COMMAND(TARGET yajl_s POST_BUILD
+  ADD_CUSTOM_COMMAND(TARGET yajl POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header} ${incDir})
 ENDFOREACH (header ${PUB_HDRS})
 
@@ -81,7 +79,6 @@ INSTALL(TARGETS yajl
         RUNTIME DESTINATION lib${LIB_SUFFIX}
         LIBRARY DESTINATION lib${LIB_SUFFIX}
         ARCHIVE DESTINATION lib${LIB_SUFFIX})
-INSTALL(TARGETS yajl_s ARCHIVE DESTINATION lib${LIB_SUFFIX})
 INSTALL(FILES ${PUB_HDRS} DESTINATION include/yajl)
 INSTALL(FILES ${incDir}/yajl_version.h DESTINATION include/yajl)
 INSTALL(FILES ${pkgconfigDir}/yajl.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)
