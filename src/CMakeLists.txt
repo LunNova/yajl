@@ -65,7 +65,7 @@ CONFIGURE_FILE(yajl.pc.cmake ${pkgconfigDir}/yajl.pc)
 FOREACH (header ${PUB_HDRS})
   SET (header ${CMAKE_CURRENT_SOURCE_DIR}/${header})
 
-  EXEC_PROGRAM(${CMAKE_COMMAND} ARGS -E copy_if_different ${header} ${incDir})
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header} ${incDir})
 
   ADD_CUSTOM_COMMAND(TARGET yajl POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header} ${incDir})
